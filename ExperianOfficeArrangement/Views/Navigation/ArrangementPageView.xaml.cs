@@ -30,7 +30,8 @@ namespace ExperianOfficeArrangement.Views
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragDrop.DoDragDrop(sender as DependencyObject, new DataObject(InteriorObjectBase.DataFormat, (sender as ContentControl).Content), DragDropEffects.Copy);
+                DataObject dragData = new DataObject(InteriorObjectBase.DataFormat, (sender as ContentControl).Content);
+                DragDrop.DoDragDrop(sender as DependencyObject, dragData, DragDropEffects.Copy);
             }
         }
     }

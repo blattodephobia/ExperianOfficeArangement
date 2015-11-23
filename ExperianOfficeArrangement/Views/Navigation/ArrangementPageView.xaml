@@ -57,10 +57,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <ToolBar Height="48">
+        <ToolBar Height="48"
+                 ToolBarTray.IsLocked="True">
             <ToolBar.Resources>
                 <ResourceDictionary>
                     <Style TargetType="TextBlock">
@@ -69,6 +71,7 @@
                     </Style>
                 </ResourceDictionary>
             </ToolBar.Resources>
+
             <TextBlock Text="Table:"
                        VerticalAlignment="Center" />
             <ContentControl Content="{Binding TableModel}"
@@ -105,11 +108,15 @@
             <Image Stretch="Uniform"
                    Visibility="Collapsed"
                    Source="pack://application:,,,/Resources/Images/Recycle-Bin-icon.png" />
-
-            <TextBlock Text="Drag and drop furniture to arrange" />
         </ToolBar>
-
-        <Border Grid.Row="1"
+        
+        <TextBlock Grid.Row="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Text="Drag and drop furniture to arrange" />
+        
+        <Border Grid.Row="2"
                 BorderThickness="2"
                 BorderBrush="Gray"
                 Padding="2"

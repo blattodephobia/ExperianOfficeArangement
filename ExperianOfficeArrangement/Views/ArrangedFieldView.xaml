@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ExperianOfficeArrangement.Views"
              mc:Ignorable="d"
              DragEnter="UserControl_DragEnter"
+             DragOver="UserControl_DragOver"
              Drop="UserControl_Drop"
              AllowDrop="True"
              d:DesignHeight="300"

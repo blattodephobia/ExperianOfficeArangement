@@ -6,8 +6,10 @@
         xmlns:vm="clr-namespace:ExperianOfficeArrangement.ViewModels"
         xmlns:models="clr-namespace:ExperianOfficeArrangement.Models"
         mc:Ignorable="d"
+        UseLayoutRounding="True"
         Title="Experian Office Arrangement"
         Icon="pack://application:,,,/Resources/Images/experian-icon.png"
+        TextElement.FontFamily="Segoe UI Light"
         Height="500"
         Width="800">
     <Window.Resources>
@@ -46,7 +48,7 @@
                         <Trigger Property="IsEnabled"
                                  Value="False">
                             <Setter Property="Visibility"
-                                    Value="Collapsed" />
+                                    Value="Hidden" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
