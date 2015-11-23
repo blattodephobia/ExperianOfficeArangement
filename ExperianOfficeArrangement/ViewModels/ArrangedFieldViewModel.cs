@@ -26,8 +26,11 @@ namespace ExperianOfficeArrangement.ViewModels
 
         private void ArrangeObject(object @object)
         {
-            this.ArrangedItems.Add(@object as InteriorObjectBase);
-            this.ArrangeObjectCommand.RaiseCanExecuteChanged();
+            if (this.CanArrangeObject(@object))
+            {
+                this.ArrangedItems.Add(@object as InteriorObjectBase);
+                this.ArrangeObjectCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private bool CanArrangeObject(object @object)

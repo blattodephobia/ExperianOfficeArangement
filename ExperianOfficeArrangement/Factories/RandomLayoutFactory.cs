@@ -9,14 +9,14 @@ namespace ExperianOfficeArrangement.Factories
 {
     public class RandomLayoutFactory : LayoutFactoryBase
     {
-        public RandomLayoutFactory()
+        public RandomLayoutFactory() :
+            this(new Random())
         {
-            this.rand = new Random();
         }
 
-        public RandomLayoutFactory(int seed)
+        public RandomLayoutFactory(int seed) :
+            this(new Random(seed))
         {
-            this.rand = new Random(seed);
         }
 
         public override InteriorField[,] GetLayout()
@@ -33,6 +33,12 @@ namespace ExperianOfficeArrangement.Factories
                 }
 
             return result;
+        }
+
+        protected RandomLayoutFactory(Random rand)
+        {
+            this.rand = rand;
+            this.LayoutIdentifier = "<random>";
         }
 
         private Random rand;

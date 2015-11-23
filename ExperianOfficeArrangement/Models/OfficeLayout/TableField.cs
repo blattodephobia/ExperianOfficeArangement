@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ExperianOfficeArrangement.Models
 {
     [SymbolIdentifier(IDENTIFIER)]
-    public class TableField : InteriorField
+    public class TableField : FurnitureField
     {
         public const char IDENTIFIER = 'T';
 

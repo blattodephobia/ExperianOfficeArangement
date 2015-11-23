@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ExperianOfficeArrangement.Models
 {
     [SymbolIdentifier(IDENTIFIER)]
-    public class ChairField : InteriorField
+    public class ChairField : FurnitureField
     {
         public const char IDENTIFIER = 'C';
 

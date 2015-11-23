@@ -50,7 +50,7 @@ namespace ExperianOfficeArrangement.Common
             }
 
             [TestMethod]
-            public void ShouldRaisPropertyChangedViaExpressionNameGetter()
+            public void ShouldRaisePropertyChangedViaExpressionNameGetter()
             {
                 MockBindable bindable = new MockBindable();
                 int invokationsCount = 0;

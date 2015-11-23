@@ -67,8 +67,9 @@
     <Compile Include="Models\InteriorObjects\InteriorObjectBase.cs" />
     <Compile Include="Models\InteriorObjects\Pathway.cs" />
     <Compile Include="Models\InteriorObjects\Table.cs" />
+    <Compile Include="Models\OfficeLayout\FurnitureField.cs" />
     <Compile Include="ViewModels\ArrangedFieldViewModel.cs" />
-    <Compile Include="ViewModels\ArrangementPageViewModel.cs" />
+    <Compile Include="ViewModels\Navigation\ArrangementPageViewModel.cs" />
     <Compile Include="ViewModels\Navigation\ChooseBrandViewModel.cs" />
     <Compile Include="ViewModels\Navigation\IStateContext.cs" />
     <Compile Include="ViewModels\Navigation\IStateViewModel.cs" />
@@ -78,7 +79,7 @@
     <Compile Include="Views\ArrangedFieldView.xaml.cs">
       <DependentUpon>ArrangedFieldView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ArrangementPageView.xaml.cs">
+    <Compile Include="Views\Navigation\ArrangementPageView.xaml.cs">
       <DependentUpon>ArrangementPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Navigation\ChooseBrandView.xaml.cs">
@@ -110,7 +111,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ArrangementPageView.xaml">
+    <Page Include="Views\Navigation\ArrangementPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

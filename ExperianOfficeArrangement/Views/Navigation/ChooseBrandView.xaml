@@ -23,6 +23,6 @@
                   VerticalAlignment="Center"
                   ItemsSource="{Binding Brands}"
                   SelectedIndex="0"
-                  SelectedItem="{Binding BrandName, Mode=OneWayToSource}" />
+                  SelectedItem="{Binding SelectedBrand, Mode=OneWayToSource}" />
     </Grid>
 </UserControl>

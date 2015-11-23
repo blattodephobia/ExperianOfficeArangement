@@ -28,13 +28,13 @@ namespace ExperianOfficeArrangement.Factories
                         .Select(s => s
                             .Select(c => this.CreateField(c)).ToList()).ToList();
 
-                    int rowsCount = layout.Max(l => l.Count);
-                    InteriorField[,] result = new InteriorField[rowsCount, layout.Count];
-                    for (int y = 0; y < layout.Count; y++)
+                    int columnsCount = layout.Max(l => l.Count);
+                    InteriorField[,] result = new InteriorField[layout.Count, columnsCount];
+                    for (int row = 0; row < layout.Count; row++)
                     {
-                        for (int x = 0; x < layout[y].Count; x++)
+                        for (int col = 0; col < layout[row].Count; col++)
                         {
-                            result[x, y] = layout[y][x];
+                            result[row, col] = layout[row][col];
                         }
                     }
                     return result;

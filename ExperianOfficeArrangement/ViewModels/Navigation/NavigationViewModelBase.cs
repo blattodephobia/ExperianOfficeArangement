@@ -36,7 +36,7 @@ namespace ExperianOfficeArrangement.ViewModels
 
             set
             {
-                if (value == null) throw new InvalidOperationException($"{PropertyName.Get(() => this.Parent)} cannot be null.");
+                if (value == null) throw new InvalidOperationException($"{nameof(this.Parent)} cannot be null.");
                 this.SetProperty(ref this.parent, value);
             }
         }

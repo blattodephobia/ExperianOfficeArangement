@@ -10,18 +10,18 @@ namespace ExperianOfficeArrangement.ViewModels
 {
     public class ChooseBrandViewModel : NavigationViewModelBase
     {
-        private string brandName;
-        public string BrandName
+        private string selectedBrandName;
+        public string SelectedBrand
         {
             get
             {
-                return this.brandName;
+                return this.selectedBrandName;
             }
 
             set
             {
-                this.SetProperty(ref this.brandName, value);
-                this.CanTransition = !string.IsNullOrEmpty(this.brandName);
+                this.SetProperty(ref this.selectedBrandName, value);
+                this.CanTransition = !string.IsNullOrEmpty(this.selectedBrandName);
             }
         }
 
@@ -29,7 +29,7 @@ namespace ExperianOfficeArrangement.ViewModels
 
         public override IStateViewModel GetNextState()
         {
-            ArrangementPageViewModel result = new ArrangementPageViewModel(this.layout, new Chair(this.BrandName), new Table(this.BrandName));
+            ArrangementPageViewModel result = new ArrangementPageViewModel(this.layout, new Chair(this.SelectedBrand), new Table(this.SelectedBrand));
             return result;
         }
 

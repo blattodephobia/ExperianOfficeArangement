@@ -34,7 +34,6 @@ namespace ExperianOfficeArrangement.ViewModels
             set
             {
                 this.SetProperty(ref this.layoutIdentifier, value);
-                this.CanTransition = File.Exists(value);
             }
         }
 
@@ -42,16 +41,16 @@ namespace ExperianOfficeArrangement.ViewModels
 
         public override IStateViewModel GetNextState()
         {
-            return new ChooseBrandViewModel(this.layout);
+            return this.layout != null ? new ChooseBrandViewModel(this.layout) : null;
         }
 
         private void LoadLayout(object dummyParam)
         {
             this.layout = this.layoutFactory.GetLayout();
-            this.CanTransition = this.layout != null;
             if (this.layout != null)
             {
                 this.LayoutIdentifier = layoutFactory.LayoutIdentifier;
+                this.CanTransition = this.layout != null;
             }
         }
 

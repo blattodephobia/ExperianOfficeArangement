@@ -102,13 +102,13 @@ namespace ExperianOfficeArrangement.ViewModels
 
         public ArrangementPageViewModel(InteriorField[,] layout, Chair chairModel, Table tableModel)
         {
-            this.Rows = layout.GetLength(1);
-            this.Columns = layout.GetLength(0);
+            this.Rows = layout.GetLength(0);
+            this.Columns = layout.GetLength(1);
             this.Arrangement = new ObservableCollection<ArrangedFieldViewModel>();
-            for (int y = 0; y < layout.GetLength(1); y++)
-                for (int x = 0; x < layout.GetLength(0); x++)
+            for (int y = 0; y < layout.GetLength(0); y++)
+                for (int x = 0; x < layout.GetLength(1); x++)
                 {
-                    this.Arrangement.Add(new ArrangedFieldViewModel((layout[x, y])));
+                    this.Arrangement.Add(new ArrangedFieldViewModel((layout[y, x])));
                 }
 
             this.Palettes = new ObservableCollection<string>(new[] { "Light", "Dark" });

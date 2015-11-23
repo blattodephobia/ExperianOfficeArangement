@@ -25,6 +25,7 @@
             <TextBlock Text="File:" />
             <TextBox Margin="5 0"
                      Width="200"
+                     IsReadOnly="True"
                      Text="{Binding LayoutIdentifier, UpdateSourceTrigger=PropertyChanged}" />
             <Button Content="Browse..."
                     Command="{Binding LoadMapCommand}" />
