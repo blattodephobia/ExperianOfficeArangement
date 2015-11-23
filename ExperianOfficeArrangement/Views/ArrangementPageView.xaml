@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="ExperianOfficeArrangement.Views.ArrangementPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ExperianOfficeArrangement.Views"
+             xmlns:models="clr-namespace:ExperianOfficeArrangement.Models"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type models:Flower}">
+            <Image>
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem, ElementName=PaletteSelector}"
+                                         Value="Light">
+                                <Setter Property="Source"
+                                        Value="pack://application:,,,/Resources/Images/flower-purple-small.png" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding SelectedItem, ElementName=PaletteSelector}"
+                                         Value="Dark">
+                                <Setter Property="Source"
+                                        Value="pack://application:,,,/Resources/Images/flower-green-small.jpg" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type models:Pathway}">
+            <Rectangle>
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedItem, ElementName=PaletteSelector}"
+                                         Value="Light">
+                                <Setter Property="Fill"
+                                        Value="Gray" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding SelectedItem, ElementName=PaletteSelector}"
+                                         Value="Dark">
+                                <Setter Property="Fill"
+                                        Value="Brown" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ToolBar Height="48">
+            <ToolBar.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin"
+                                Value="5 0" />
+                    </Style>
+                </ResourceDictionary>
+            </ToolBar.Resources>
+            <TextBlock Text="Table:"
+                       VerticalAlignment="Center" />
+            <ContentControl Content="{Binding TableModel}"
+                            Width="15"
+                            Height="15"
+                            VerticalAlignment="Center"
+                            MouseMove="Polygon_MouseMove" />
+
+            <TextBlock Text="Chair:"
+                       VerticalAlignment="Center" />
+            <ContentControl Content="{Binding ChairModel}"
+                            Width="15"
+                            Height="15"
+                            VerticalAlignment="Center"
+                            MouseMove="Polygon_MouseMove" />
+
+            <Separator />
+
+            <TextBlock Text="Palette:"
+                       VerticalAlignment="Center" />
+            <ComboBox Name="PaletteSelector"
+                      Width="80"
+                      ItemsSource="{Binding Palettes}"
+                      SelectedIndex="0"
+                      SelectedItem="{Binding SelectedPalette, Mode=OneWayToSource}" />
+
+            <Separator />
+
+            <Button Command="{Binding ClearAllCommand}">
+                <Image Source="pack://application:,,,/Resources/Images/delete-icon.png"
+                       ToolTip="Remove all furniture" />
+            </Button>
+
+            <Image Stretch="Uniform"
+                   Visibility="Collapsed"
+                   Source="pack://application:,,,/Resources/Images/Recycle-Bin-icon.png" />
+
+            <TextBlock Text="Drag and drop furniture to arrange" />
+        </ToolBar>
+
+        <Border Grid.Row="1"
+                BorderThickness="2"
+                BorderBrush="Gray"
+                Padding="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <ItemsControl ItemsSource="{Binding Arrangement}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Width"
+                                Value="15" />
+
+                        <Setter Property="Height"
+                                Value="15" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding Rows}"
+                                     Columns="{Binding Columns}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
+    </Grid>
+</UserControl>

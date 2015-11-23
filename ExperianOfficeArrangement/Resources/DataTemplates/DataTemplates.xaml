@@ -1,0 +1,96 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:ExperianOfficeArrangement.ViewModels"
+                    xmlns:views="clr-namespace:ExperianOfficeArrangement.Views"
+                    xmlns:models="clr-namespace:ExperianOfficeArrangement.Models">
+    <DataTemplate DataType="{x:Type vm:ArrangedFieldViewModel}">
+        <views:ArrangedFieldView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ArrangementPageViewModel}">
+        <views:ArrangementPageView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:LoadMapViewModel}">
+        <views:LoadMapView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ChooseBrandViewModel}">
+        <views:ChooseBrandView/>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BlueStar"
+                  DataType="{x:Type models:Chair}">
+        <Viewbox Stretch="Uniform">
+            <Polygon Points="8.2,0 10,5 16,5 11,8 13,13 8,10 3,13 5,8 0,5 6,5"
+                     Fill="Blue" />
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BlueCircle">
+        <Viewbox Stretch="Uniform">
+            <Ellipse Fill="Blue"
+                     Width="50"
+                     Height="{Binding Width, RelativeSource={RelativeSource Self}}" />
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RedHexagon">
+        <Viewbox Stretch="Uniform">
+            <Polygon Points="1,0 3,0 4,1.73 3,3.46 1,3.46 0,1.73"
+                     Fill="Red">
+            </Polygon>
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate x:Key="WhiteSquare">
+        <Viewbox Stretch="Uniform">
+            <Polygon Points="0,0 1,0 1,1 0,1"
+                     Fill="White" />
+        </Viewbox>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type models:Chair}">
+        <ContentControl>
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BrandName}"
+                                     Value="A">
+                            <Setter Property="ContentTemplate"
+                                    Value="{StaticResource WhiteSquare}" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding BrandName}"
+                                     Value="B">
+                            <Setter Property="ContentTemplate"
+                                    Value="{StaticResource BlueStar}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type models:Table}">
+        <ContentControl>
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BrandName}"
+                                     Value="A">
+                            <Setter Property="ContentTemplate"
+                                    Value="{StaticResource BlueCircle}"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding BrandName}"
+                                     Value="B">
+                            <Setter Property="ContentTemplate"
+                                    Value="{StaticResource RedHexagon}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </DataTemplate>
+</ResourceDictionary>

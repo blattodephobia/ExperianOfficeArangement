@@ -1,0 +1,56 @@
+﻿<Window x:Class="ExperianOfficeArrangement.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ExperianOfficeArrangement.ViewModels"
+        xmlns:models="clr-namespace:ExperianOfficeArrangement.Models"
+        mc:Ignorable="d"
+        Title="Experian Office Arrangement"
+        Icon="pack://application:,,,/Resources/Images/experian-icon.png"
+        Height="500"
+        Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\DataTemplates\DataTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ContentControl Content="{Binding CurrentState}" />
+
+        <Button Grid.Row="1"
+                Content="Next"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Height="60"
+                Width="180"
+                Margin="15"
+                Foreground="White"
+                Background="LightSeaGreen"
+                Command="{Binding CurrentState.NavigateForwardCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled"
+                                 Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</Window>
