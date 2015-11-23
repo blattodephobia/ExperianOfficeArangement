@@ -12,6 +12,8 @@ namespace ExperianOfficeArrangement.ViewModels
 {
     public class ArrangementPageViewModel : NavigationViewModelBase
     {
+        public static readonly string DataFormat = "exp_ArrangementPageViewModel";
+
         private ObservableCollection<ArrangedFieldViewModel> arrangement;
         public ObservableCollection<ArrangedFieldViewModel> Arrangement
         {

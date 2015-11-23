@@ -11,6 +11,8 @@ namespace ExperianOfficeArrangement.ViewModels
 {
     public class ArrangedFieldViewModel : BindableBase
     {
+        public static readonly string DataFormat = "exp_ArrangedFieldViewModel";
+
         public InteriorField PlaceHolder { get; private set; }
 
         public ObservableCollection<InteriorObjectBase> ArrangedItems { get; private set; }

@@ -31,7 +31,8 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ContentControl Content="{Binding ArrangedItems[0]}">
+        <ContentControl Content="{Binding ArrangedItems[0]}"
+                        MouseMove="ContentControl_MouseMove">
             <ContentControl.Style>
                 <Style TargetType="ContentControl">
                     <Style.Triggers>

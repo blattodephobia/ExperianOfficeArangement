@@ -106,8 +106,12 @@
             </Button>
 
             <Image Stretch="Uniform"
-                   Visibility="Collapsed"
-                   Source="pack://application:,,,/Resources/Images/Recycle-Bin-icon.png" />
+                   AllowDrop="True"
+                   Source="pack://application:,,,/Resources/Images/Recycle-Bin-icon.png"
+                   Drop="RecycleBinDrop"
+                   DragEnter="Image_DragEnter"
+                   DragOver="Image_DragOver"
+                   ToolTip="Drop furniture here to remove it."/>
         </ToolBar>
         
         <TextBlock Grid.Row="1"

@@ -8,6 +8,5 @@ namespace ExperianOfficeArrangement.Models
 {
     public abstract class InteriorObjectBase
     {
-        public static readonly string DataFormat = "xp_InteriorObject";
     }
 }
