@@ -100,6 +100,8 @@ namespace ExperianOfficeArrangement.ViewModels
 
         public IInvalidatableCommand ClearAllCommand { get; private set; }
 
+        public IInvalidatableCommand FillAllCommand { get; private set; }
+
         public ObservableCollection<string> Palettes { get; private set; }
 
         public ArrangementPageViewModel(InteriorField[,] layout, Chair chairModel, Table tableModel)
@@ -126,6 +128,7 @@ namespace ExperianOfficeArrangement.ViewModels
             }
 
             this.ClearAllCommand = new DelegateCommand((param) => this.ClearAll());
+            this.FillAllCommand = new DelegateCommand((param) => this.FillAll());
         }
 
         private void ClearAll()
@@ -136,6 +139,15 @@ namespace ExperianOfficeArrangement.ViewModels
                 {
                     vm.ArrangedItems.Clear();
                 }
+            }
+        }
+
+        private void FillAll()
+        {
+            foreach (ArrangedFieldViewModel field in this.Arrangement.Where(a => (a.PlaceHolder is FurnitureField) && !a.ArrangedItems.Any()))
+            {
+                FurnitureItem targetObject = (field.PlaceHolder is ChairField) ? new Chair() as FurnitureItem : new Table() as FurnitureItem;
+                field.ArrangeObjectCommand.Execute(targetObject);
             }
         }
     }

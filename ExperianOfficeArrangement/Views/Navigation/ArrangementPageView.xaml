@@ -99,6 +99,13 @@
                       SelectedItem="{Binding SelectedPalette, Mode=OneWayToSource}" />
 
             <Separator />
+            
+            <!-- Disabled due to visual glitches -->
+            <Button Command="{Binding FillAllCommand}"
+                    Visibility="Collapsed">
+                <Image Source="pack://application:,,,/Resources/Images/plus-icon.png"
+                       ToolTip="Fill all furniture space" />
+            </Button>
 
             <Button Command="{Binding ClearAllCommand}">
                 <Image Source="pack://application:,,,/Resources/Images/delete-icon.png"

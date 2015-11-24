@@ -73,5 +73,60 @@ namespace ExperianOfficeArrangement.ViewModels.Tests
                 Assert.AreEqual(null, vm.Arrangement[1].ArrangedItems.FirstOrDefault());
             }
         }
+
+        [TestClass]
+        public class FillAllCommandTests
+        {
+            [TestMethod]
+            public void ShouldFillAllEmptyFields1()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                Assert.AreEqual(null, vm.Arrangement[0].ArrangedItems.FirstOrDefault());
+                Assert.AreEqual(null, vm.Arrangement[1].ArrangedItems.FirstOrDefault());
+
+                Assert.IsTrue(vm.FillAllCommand.CanExecute(null));
+                vm.FillAllCommand.Execute(null);
+
+                Assert.IsTrue(vm.Arrangement[0].ArrangedItems.First() is Chair);
+                Assert.IsTrue(vm.Arrangement[1].ArrangedItems.First() is Table);
+            }
+
+            [TestMethod]
+            public void ShouldFillAllEmptyFields2()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                Assert.AreEqual(null, vm.Arrangement[0].ArrangedItems.FirstOrDefault());
+                Assert.AreEqual(null, vm.Arrangement[1].ArrangedItems.FirstOrDefault());
+
+                Assert.IsTrue(vm.FillAllCommand.CanExecute(null));
+                vm.FillAllCommand.Execute(null);
+
+                Assert.IsTrue(vm.Arrangement[0].ArrangedItems.First() is Chair);
+                Assert.IsTrue(vm.Arrangement[1].ArrangedItems.First() is Table);
+
+                Assert.IsFalse(vm.Arrangement.Any(a => !(a.PlaceHolder is FurnitureField) && a.ArrangedItems.Any(item => item is FurnitureItem)));
+            }
+
+            [TestMethod]
+            public void ShouldNotReplaceFilledFields()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                vm.Arrangement[0].ArrangeObjectCommand.Execute(chairModel);
+                vm.FillAllCommand.Execute(null);
+
+                Assert.AreEqual(chairModel, vm.Arrangement[0].ArrangedItems.First());
+                Assert.IsTrue(vm.Arrangement[1].ArrangedItems.First() is Table);
+                Assert.IsFalse(vm.Arrangement[1].ArrangedItems.First() == tableModel);
+            }
+        }
     }
 }
