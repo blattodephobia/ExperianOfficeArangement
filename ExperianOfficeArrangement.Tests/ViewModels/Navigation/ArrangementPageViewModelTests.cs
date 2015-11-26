@@ -128,5 +128,48 @@ namespace ExperianOfficeArrangement.ViewModels.Tests
                 Assert.IsFalse(vm.Arrangement[1].ArrangedItems.First() == tableModel);
             }
         }
+
+        [TestClass]
+        public class RemoveObjectCommandTests
+        {
+            [TestMethod]
+            public void ShouldRemoveObject()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                vm.Arrangement[0].ArrangeObjectCommand.Execute(chairModel);
+                Assert.AreEqual(chairModel, vm.Arrangement[0].ArrangedItems.First());
+
+                Assert.IsTrue(vm.RemoveObjectCommand.CanExecute(vm.Arrangement[0]));
+                vm.RemoveObjectCommand.Execute(vm.Arrangement[0]);
+                Assert.AreEqual(null, vm.Arrangement[0].ArrangedItems.FirstOrDefault());
+            }
+
+            [TestMethod]
+            public void ShouldBeDisabledForNonFurniture1()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                ArrangedFieldViewModel field = new ArrangedFieldViewModel(new FlowerField());
+                field.ArrangeObjectCommand.Execute(new Flower());
+                Assert.IsFalse(vm.RemoveObjectCommand.CanExecute(field));
+            }
+
+            [TestMethod]
+            public void ShouldBeDisabledForNonFurniture2()
+            {
+                Chair chairModel = new Chair();
+                Table tableModel = new Table();
+                ArrangementPageViewModel vm = new ArrangementPageViewModel(Layout, chairModel, tableModel);
+
+                ArrangedFieldViewModel field = new ArrangedFieldViewModel(new FlowerField());
+                field.ArrangeObjectCommand.Execute(new Pathway());
+                Assert.IsFalse(vm.RemoveObjectCommand.CanExecute(field));
+            }
+        }
     }
 }

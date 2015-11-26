@@ -1,4 +1,5 @@
-﻿using ExperianOfficeArrangement.Common;
+﻿using ExperianOfficeArrangement.Behaviors;
+using ExperianOfficeArrangement.Common;
 using ExperianOfficeArrangement.Factories;
 using ExperianOfficeArrangement.Models;
 using System;
@@ -7,13 +8,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ExperianOfficeArrangement.ViewModels
 {
     public class ArrangementPageViewModel : NavigationViewModelBase
     {
-        public static readonly string DataFormat = "exp_ArrangementPageViewModel";
-
         private ObservableCollection<ArrangedFieldViewModel> arrangement;
         public ObservableCollection<ArrangedFieldViewModel> Arrangement
         {
@@ -102,6 +102,8 @@ namespace ExperianOfficeArrangement.ViewModels
 
         public IInvalidatableCommand FillAllCommand { get; private set; }
 
+        public IInvalidatableCommand RemoveObjectCommand { get; private set; }
+
         public ObservableCollection<string> Palettes { get; private set; }
 
         public ArrangementPageViewModel(InteriorField[,] layout, Chair chairModel, Table tableModel)
@@ -129,6 +131,19 @@ namespace ExperianOfficeArrangement.ViewModels
 
             this.ClearAllCommand = new DelegateCommand((param) => this.ClearAll());
             this.FillAllCommand = new DelegateCommand((param) => this.FillAll());
+            this.RemoveObjectCommand = new DelegateCommand(this.RemoveObject, this.CanRemoveObject);
+        }
+
+        private bool CanRemoveObject(object param)
+        {
+            ArrangedFieldViewModel source = param as ArrangedFieldViewModel ?? (DragDropBehavior.GetDragBehaviorData((param as DragEventArgs)?.Data) as ArrangedFieldViewModel);
+            return source?.ArrangedItems.Any(m => m is FurnitureItem) ?? false;
+        }
+
+        private void RemoveObject(object param)
+        {
+            ArrangedFieldViewModel source = param as ArrangedFieldViewModel ?? (DragDropBehavior.GetDragBehaviorData((param as DragEventArgs)?.Data) as ArrangedFieldViewModel);
+            source?.ArrangedItems.Clear();
         }
 
         private void ClearAll()

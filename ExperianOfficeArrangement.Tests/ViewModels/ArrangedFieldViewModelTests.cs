@@ -61,6 +61,22 @@ namespace ExperianOfficeArrangement.ViewModels.Tests
                 vm.ArrangeObjectCommand.Execute(obj);
                 Assert.AreEqual(obj, vm.ArrangedItems.First());
             }
+
+            [TestMethod]
+            public void ShouldRearrangeFurnitureCorrectly()
+            {
+                ChairField testPlaceHolder = new ChairField();
+                ArrangedFieldViewModel source = new ArrangedFieldViewModel(testPlaceHolder);
+                ArrangedFieldViewModel target = new ArrangedFieldViewModel(testPlaceHolder);
+
+                Chair chair = new Chair();
+                source.ArrangeObjectCommand.Execute(chair);
+                Assert.AreEqual(chair, source.ArrangedItems.FirstOrDefault());
+
+                target.ArrangeObjectCommand.Execute(source);
+                Assert.AreEqual(null, source.ArrangedItems.FirstOrDefault());
+                Assert.AreEqual(chair, target.ArrangedItems.FirstOrDefault());
+            }
         }
     }
 }

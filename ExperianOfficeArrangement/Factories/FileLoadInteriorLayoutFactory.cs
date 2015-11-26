@@ -12,11 +12,14 @@ namespace ExperianOfficeArrangement.Factories
 {
     public class FileLoadInteriorLayoutFactory : LayoutFactoryBase
     {
+        private static readonly string DataSubdirName = "Data";
+
         public override InteriorField[,] GetLayout()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.DefaultExt = "txt";
-            openFileDialog.InitialDirectory = Environment.CurrentDirectory;
+            DirectoryInfo currentDir = new DirectoryInfo(Environment.CurrentDirectory);
+            openFileDialog.InitialDirectory = (currentDir.EnumerateDirectories().FirstOrDefault(d => d.Name == DataSubdirName) ?? currentDir).FullName;
             if (openFileDialog.ShowDialog().GetValueOrDefault())
             {
                 this.LayoutIdentifier = openFileDialog.FileName;

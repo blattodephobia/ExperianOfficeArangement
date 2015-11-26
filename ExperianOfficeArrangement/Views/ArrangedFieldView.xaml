@@ -4,11 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ExperianOfficeArrangement.Views"
+             xmlns:behaviors="clr-namespace:ExperianOfficeArrangement.Behaviors"
+             xmlns:models="clr-namespace:ExperianOfficeArrangement.Models"
              mc:Ignorable="d"
-             DragEnter="UserControl_DragEnter"
-             DragOver="UserControl_DragOver"
-             Drop="UserControl_Drop"
-             AllowDrop="True"
              d:DesignHeight="300"
              d:DesignWidth="300">
     <Grid>
@@ -19,20 +17,22 @@
                 <Style TargetType="TextBlock">
                     <Setter Property="Visibility"
                             Value="Collapsed" />
-                    
+
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ArrangedItems[0]}"
                                      Value="{x:Null}">
                             <Setter Property="Visibility"
                                     Value="Visible" />
+
+                            <Setter Property="AllowDrop"
+                                    Value="True" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>
         </TextBlock>
 
-        <ContentControl Content="{Binding ArrangedItems[0]}"
-                        MouseMove="ContentControl_MouseMove">
+        <ContentControl Content="{Binding ArrangedItems[0]}">
             <ContentControl.Style>
                 <Style TargetType="ContentControl">
                     <Style.Triggers>
@@ -40,6 +40,12 @@
                                      Value="{x:Null}">
                             <Setter Property="Visibility"
                                     Value="Collapsed" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ArrangedItems[0]}"
+                                     Value="{x:Type models:FurnitureItem}">
+                            <Setter Property="behaviors:DragDropBehavior.DropCommand"
+                                    Value="{Binding ArrangeObjectCommand}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

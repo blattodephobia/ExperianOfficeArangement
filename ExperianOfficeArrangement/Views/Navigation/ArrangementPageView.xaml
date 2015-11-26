@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ExperianOfficeArrangement.Views"
              xmlns:models="clr-namespace:ExperianOfficeArrangement.Models"
+             xmlns:behaviors="clr-namespace:ExperianOfficeArrangement.Behaviors"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
@@ -78,7 +79,8 @@
                             Width="15"
                             Height="15"
                             VerticalAlignment="Center"
-                            MouseMove="Polygon_MouseMove" />
+                            behaviors:DragDropBehavior.DragObject="{Binding TableModel}"
+                            behaviors:DragDropBehavior.DragEffect="Copy" />
 
             <TextBlock Text="Chair:"
                        VerticalAlignment="Center" />
@@ -86,7 +88,8 @@
                             Width="15"
                             Height="15"
                             VerticalAlignment="Center"
-                            MouseMove="Polygon_MouseMove" />
+                            behaviors:DragDropBehavior.DragObject="{Binding ChairModel}"
+                            behaviors:DragDropBehavior.DragEffect="Copy" />
 
             <Separator />
 
@@ -99,7 +102,7 @@
                       SelectedItem="{Binding SelectedPalette, Mode=OneWayToSource}" />
 
             <Separator />
-            
+
             <!-- Disabled due to visual glitches -->
             <Button Command="{Binding FillAllCommand}"
                     Visibility="Collapsed">
@@ -113,20 +116,17 @@
             </Button>
 
             <Image Stretch="Uniform"
-                   AllowDrop="True"
+                   behaviors:DragDropBehavior.DropCommand="{Binding RemoveObjectCommand}"
                    Source="pack://application:,,,/Resources/Images/Recycle-Bin-icon.png"
-                   Drop="RecycleBinDrop"
-                   DragEnter="Image_DragEnter"
-                   DragOver="Image_DragOver"
-                   ToolTip="Drop furniture here to remove it."/>
+                   ToolTip="Drop furniture here to remove it." />
         </ToolBar>
-        
+
         <TextBlock Grid.Row="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="24"
                    Text="Drag and drop furniture to arrange" />
-        
+
         <Border Grid.Row="2"
                 BorderThickness="2"
                 BorderBrush="Gray"
@@ -141,6 +141,15 @@
 
                         <Setter Property="Height"
                                 Value="15" />
+
+                        <Setter Property="behaviors:DragDropBehavior.DropCommand"
+                                Value="{Binding Content.ArrangeObjectCommand, RelativeSource={RelativeSource Self}}" />
+
+                        <Setter Property="behaviors:DragDropBehavior.DragObject"
+                                Value="{Binding}" />
+
+                        <Setter Property="behaviors:DragDropBehavior.DragEffect"
+                                Value="Move" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
 
