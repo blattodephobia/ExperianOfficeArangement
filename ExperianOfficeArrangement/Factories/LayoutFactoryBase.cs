@@ -8,8 +8,19 @@ namespace ExperianOfficeArrangement.Factories
 {
     public abstract class LayoutFactoryBase : IInteriorLayoutFactory
     {
+        static LayoutFactoryBase()
+        {
+            SearchedAssemblies = new HashSet<Assembly>();
+            SupportedTypes = new Dictionary<char, Type>();
+            SearchAssembly(typeof(LayoutFactoryBase).Assembly);
+        }
+
         protected static readonly int MaxRows = 50;
         protected static readonly int MaxColumns = 50;
+
+        private static readonly HashSet<Assembly> SearchedAssemblies;
+
+        private static readonly Dictionary<char, Type> SupportedTypes;
 
         public abstract InteriorField[,] GetLayout();
 
@@ -19,7 +30,10 @@ namespace ExperianOfficeArrangement.Factories
         {
             try
             {
-                return Activator.CreateInstance(this.supportedTypes[symbol]) as InteriorField;
+                Assembly currentAssembly = Assembly.GetCallingAssembly();
+                if (!SearchedAssemblies.Contains(currentAssembly)) SearchAssembly(currentAssembly);
+
+                return Activator.CreateInstance(SupportedTypes[symbol]) as InteriorField;
             }
             catch
             {
@@ -29,22 +43,24 @@ namespace ExperianOfficeArrangement.Factories
 
         protected LayoutFactoryBase()
         {
-            this.supportedTypes = new Dictionary<char, Type>();
+            this.SupportedIdentifiers = SupportedTypes.Keys.ToList();
+        }
 
-            foreach (Type layoutType in (Assembly.GetAssembly(typeof(LayoutFactoryBase)).ExportedTypes ?? Enumerable.Empty<Type>()).Where(t => typeof(InteriorField).IsAssignableFrom(t)))
+        private static void SearchAssembly(Assembly assembly)
+        {
+            SearchedAssemblies.Add(assembly);
+            foreach (Type layoutType in (assembly.ExportedTypes ?? Enumerable.Empty<Type>()).Where(t => typeof(InteriorField).IsAssignableFrom(t)))
             {
-                SymbolIdentifierAttribute identifierHelper = layoutType.GetCustomAttribute(typeof(SymbolIdentifierAttribute)) as SymbolIdentifierAttribute;
-                if (identifierHelper != null)
+                foreach (SymbolIdentifierAttribute identifierHelper in layoutType.GetCustomAttributes(typeof(SymbolIdentifierAttribute)).Cast<SymbolIdentifierAttribute>())
                 {
-                    this.supportedTypes.Add(identifierHelper.Symbol, layoutType);
+                    if (!SupportedTypes.ContainsKey(identifierHelper.Symbol))
+                    {
+                        SupportedTypes.Add(identifierHelper.Symbol, layoutType);
+                    }
                 }
             }
-
-            this.SupportedIdentifiers = this.supportedTypes.Keys.ToList();
         }
 
         public IReadOnlyList<char> SupportedIdentifiers { get; private set; }
-
-        private Dictionary<char, Type> supportedTypes;
     }
 }
